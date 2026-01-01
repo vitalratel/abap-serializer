@@ -29,7 +29,8 @@ Install using [abapGit](https://abapgit.org/):
 ## Usage
 
 ```abap
-DATA(serializer) TYPE REF TO zif_serializer = NEW zcl_serializer( ).
+DATA serializer TYPE REF TO zif_serializer.
+serializer = NEW zcl_serializer( ).
 
 " Serialize any data
 DATA(my_data) = VALUE some_structure( field1 = 'A' field2 = 123 ).
