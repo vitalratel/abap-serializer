@@ -16,7 +16,7 @@ private section.
       end of ty_buffer .
   types:
     begin of ty_component,
-        name       TYPE c LENGTH 30,
+        name       TYPE abap_compname,
         descr      TYPE xstring,
         as_include TYPE abap_bool,
         suffix     TYPE string,
