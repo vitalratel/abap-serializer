@@ -16,7 +16,7 @@ private section.
       end of ty_buffer .
   types:
     begin of ty_component,
-        name       TYPE fieldname,
+        name       TYPE c LENGTH 30,
         descr      TYPE xstring,
         as_include TYPE abap_bool,
         suffix     TYPE string,
@@ -32,8 +32,8 @@ private section.
 
   methods BYTE_TO_CHAR_LENGTH
     importing
-      !TYPE_KIND type INTTYPE
-      !LENGTH type INTLEN
+      !TYPE_KIND type ABAP_TYPEKIND
+      !LENGTH type I
     returning
       value(RESULT) type I .
   methods COMPRESS
@@ -64,9 +64,9 @@ private section.
       CX_SY_DYN_CALL_ILLEGAL_TYPE .
   methods CREATE_ELEMENT_TYPE
     importing
-      !TYPE_KIND type INTTYPE
-      !LENGTH type INTLEN
-      !DECIMALS type DECIMALS
+      !TYPE_KIND type ABAP_TYPEKIND
+      !LENGTH type I
+      !DECIMALS type I
     returning
       value(RESULT) type ref to CL_ABAP_ELEMDESCR
     raising
@@ -263,7 +263,7 @@ METHOD create_element_type.
     WHEN cl_abap_typedescr=>typekind_packed.
       result = cl_abap_elemdescr=>get_p(
         p_length   = len
-        p_decimals = CONV i( decimals ) ).
+        p_decimals = decimals ).
 
     WHEN cl_abap_typedescr=>typekind_date.
       result = cl_abap_elemdescr=>get_d( ).
@@ -351,8 +351,8 @@ METHOD decompress_element.
 
   result = create_element_type(
     type_kind = abap_descr-type_kind
-    length    = CONV #( abap_descr-length )
-    decimals  = CONV #( abap_descr-decimals ) ).
+    length    = abap_descr-length
+    decimals  = abap_descr-decimals ).
 
 ENDMETHOD.
 
@@ -398,5 +398,4 @@ METHOD decompress_table.
     p_keys      = keys ).
 
 ENDMETHOD.
-
 ENDCLASS.
