@@ -80,7 +80,9 @@ CLASS ltc_serializer IMPLEMENTATION.
 
 
   METHOD serialize_date.
-    DATA(value) = sy-datum.
+    GET TIME STAMP FIELD DATA(tms).
+    CONVERT TIME STAMP tms TIME ZONE 'UTC' INTO DATE DATA(date_value).
+    DATA(value) = date_value.
     DATA(ref) = REF #( value ).
 
     DATA(serialized) = cut->serialize( ref ).
@@ -321,7 +323,9 @@ CLASS ltc_serializer IMPLEMENTATION.
 
 
   METHOD serialize_time.
-    DATA(value) = sy-uzeit.
+    GET TIME STAMP FIELD DATA(tms).
+    CONVERT TIME STAMP tms TIME ZONE 'UTC' INTO TIME DATA(time_value).
+    DATA(value) = time_value.
     DATA(ref) = REF #( value ).
 
     DATA(serialized) = cut->serialize( ref ).
